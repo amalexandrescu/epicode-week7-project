@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+    <script src="./js/addmovies.js" defer></script>
+    <title>Add new Movie</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 mt-5">
+          <h1>Add new Movie</h1>
+          <form onsubmit="onFormSubmit(event)" id="movie-form">
+            <div class="form-group">
+              <label for="movie-name">Movie Name</label>
+              <input type="text" class="form-control" id="movie-name" />
+            </div>
+            <div class="form-group">
+              <label for="movie-description">Movie Description</label>
+              <textarea class="form-control" id="movie-description"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="movie-category">Movie Category</label>
+              <input type="text" class="form-control" id="movie-category" />
+            </div>
+            <div class="form-group mb-3">
+              <label for="movie-imgUrl">Movie Image Url</label>
+              <input type="text" class="form-control" id="movie-imgUrl" />
+            </div>
+            <button id="submit-button" type="submit" class="btn btn-primary">
+              Add Product
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
