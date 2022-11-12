@@ -14,11 +14,19 @@
     <title>Delete Movie Page</title>
   </head>
   <body>
+    <div class="container-fluid sticky-top">
+      <a
+        class="btn btn-primary mt-3 aTagButtonStyling"
+        href="backoffice.html"
+        role="button"
+        >Go Back</a
+      >
+    </div>
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-6 mt-5">
           <h1>Edit Movie Section</h1>
-          <form onsubmit="onFormSubmit(event)" id="product-form">
+          <form onsubmit="onFormSubmit(event)" id="movie-form">
             <div class="form-group">
               <label for="movie-name">Movie Name</label>
               <input type="text" class="form-control" id="movie-name" />
@@ -35,8 +43,15 @@
               <label for="movie-imgUrl">Movie Image Url</label>
               <input type="text" class="form-control" id="movie-imgUrl" />
             </div>
-            <button id="submit-button" type="submit" class="btn btn-primary">
-              Edit Product
+            <button id="edit-button" type="submit" class="btn btn-primary">
+              Edit Movie
+            </button>
+            <button
+              id="delete-button"
+              type="submit"
+              class="btn btn-outline-danger"
+            >
+              Delete Movie
             </button>
           </form>
         </div>

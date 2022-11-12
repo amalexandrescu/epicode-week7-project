@@ -9,7 +9,8 @@ console.log(movieCategory);
 const url = "https://striveschool-api.herokuapp.com/api/movies";
 
 window.onload = async () => {
-  const currentUrl = `${url}/${movieCategory}`;
+  //for GET method
+  const getUrl = `${url}/${movieCategory}`;
 
   optionsGet = {
     method: "GET",
@@ -19,7 +20,7 @@ window.onload = async () => {
     },
   };
 
-  const response = await fetch(currentUrl, optionsGet);
+  const response = await fetch(getUrl, optionsGet);
   const moviesArray = await response.json();
 
   console.log(moviesArray);
@@ -32,14 +33,13 @@ window.onload = async () => {
       document.querySelector("#movie-description").value = movie.description;
       document.querySelector("#movie-category").value = movie.category;
       document.querySelector("#movie-imgUrl").value = movie.imageUrl;
-      // return;
+      break;
     }
   }
 
-  let submitButton = document.querySelector("#submit-button");
-  // submitButton.innerText = "Edit Product";
-  submitButton.classList.remove("btn-primary");
-  submitButton.classList.add("btn-success");
+  let editButton = document.querySelector("#edit-button");
+  editButton.classList.remove("btn-primary");
+  editButton.classList.add("btn-success");
 };
 
 async function onFormSubmit(event) {
@@ -65,48 +65,41 @@ async function onFormSubmit(event) {
         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZjhlOWQ0YmUzZDAwMTU4NDYwMWMiLCJpYXQiOjE2NjgwODU5OTMsImV4cCI6MTY2OTI5NTU5M30.cD3v-klASeHbVpOpbjrZdw-MFDviHcox_TWvK-MbKak",
     },
   };
-
-  const optionsGet = {
-    method: "GET",
-    headers: {
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZjhlOWQ0YmUzZDAwMTU4NDYwMWMiLCJpYXQiOjE2NjgwODU5OTMsImV4cCI6MTY2OTI5NTU5M30.cD3v-klASeHbVpOpbjrZdw-MFDviHcox_TWvK-MbKak",
-    },
-  };
-
   try {
-    // JavaScript please TRY to execute this block of code...
-    // Whenever an erorr presents inside here, we will move directly
-    // to the catch block, and we will execute the code there.
-
-    const currentUrl = `${url}/${movieCategory}`;
-
-    const moviesArray = await fetch(currentUrl, optionsGet);
-
-    for (let i = 0; i < moviesArray.length; i++) {
-      if (moviesArray[i].movie._id === movieId) {
-        const response = fetch(url, optionsPut);
-        if (response.ok) {
-          // Because we want to do this only if the response code is 200 OK
-          alert("Movie edited successfully!");
-          window.location.assign("home.html");
-        } else {
-          throw new Error("ERROR WHILE EXECUTING THE TRY BLOCK!");
-        }
-      }
-    }
-
-    // If there is an error here, when fetching...
-    // This code will not go forward -> we jump to the catch block.
+    //for PUT  and DELETE method
+    const putUrl = `${url}/${movieId}`;
+    const moviesArray = await fetch(putUrl, optionsPut);
+    window.location.assign("index.html");
   } catch (error) {
     // Any error will be catched here.
     console.error(error);
   }
 }
 
-// {
-//   "name": "The Gray Man",
-//   "description": "Amazing action movie",
-//   "category": "action",
-//   "imageUrl": "https://m.media-amazon.com/images/M/MV5BOWY4MmFiY2QtMzE1YS00NTg1LWIwOTQtYTI4ZGUzNWIxNTVmXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg"
-// }
+const deleteButton = document.querySelector("#delete-button");
+
+async function deleteMovie() {
+  try {
+    if (confirm("Do you really want to delete this product?")) {
+      const optionsDelete = {
+        method: "DELETE",
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZjhlOWQ0YmUzZDAwMTU4NDYwMWMiLCJpYXQiOjE2NjgwODU5OTMsImV4cCI6MTY2OTI5NTU5M30.cD3v-klASeHbVpOpbjrZdw-MFDviHcox_TWvK-MbKak",
+        },
+      };
+      const deleteUrl = `${url}/${movieId}`;
+
+      const response = await fetch(deleteUrl, optionsDelete);
+      if (response.ok) {
+        // This is like an a tag, but in JavaScript
+        window.location.assign("index.html");
+      } else {
+        alert("Error while deleting!");
+      }
+    }
+  } catch (error) {
+    alert(`Some erorr occured: ${error}`);
+  }
+}
+deleteButton.addEventListener("click", deleteMovie);
