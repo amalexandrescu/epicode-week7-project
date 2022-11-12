@@ -66,7 +66,9 @@ const getMoviesOfCertainGendre = async () => {
 
     if (partialCarouselsToCreate != 0) {
       createInnerCarousel(gendre);
-      let startingIndexOfMovie = numberOfFullCarouselsToCreate * 6;
+      let startingIndexOfMovie =
+        numberOfFullCarouselsToCreate * 6 -
+        (6 - (numberOfMoviesOfCertainGendre % 6));
       for (
         let i = startingIndexOfMovie;
         i < numberOfMoviesOfCertainGendre;
