@@ -44,7 +44,7 @@ function createLiForMovie(ul, movie) {
 
 const getMoviesByGendre = async () => {
   const gendresArray = await gendreMoviesFetch(url, optionsGet);
-  console.log(gendresArray);
+  // console.log(gendresArray);
   gendresArray.forEach(async (gendre) => {
     const currentUrl = url + `/${gendre}`;
     const respGendresArray = await gendreMoviesFetch(currentUrl, optionsGet);
@@ -56,5 +56,5 @@ const getMoviesByGendre = async () => {
 
 window.onload = async () => {
   const result = getMoviesByGendre();
-  console.log(result);
+  // console.log(result);
 };

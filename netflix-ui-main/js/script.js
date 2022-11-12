@@ -11,7 +11,7 @@ optionsGet = {
 const getMovieGendres = async (url, options) => {
   const response = await fetch(url, options);
   const gendres = await response.json();
-  console.log(gendres);
+  // console.log(gendres);
   return gendres;
 };
 
