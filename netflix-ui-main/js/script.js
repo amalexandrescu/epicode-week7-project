@@ -32,7 +32,9 @@ const getMoviesOfCertainGendre = async () => {
     let numberOfMoviesOfCertainGendre = currentGendreMoviesArray.length;
     let numberOfFullCarouselsToCreate = 0;
     let partialCarouselsToCreate = 0;
-    if (numberOfMoviesOfCertainGendre % 6 === 0) {
+    if (numberOfMoviesOfCertainGendre < 6) {
+      numberOfFullCarouselsToCreate = 1;
+    } else if (numberOfMoviesOfCertainGendre % 6 === 0) {
       numberOfFullCarouselsToCreate = Math.floor(
         numberOfMoviesOfCertainGendre / 6
       );
