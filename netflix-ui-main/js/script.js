@@ -32,58 +32,73 @@ const getMoviesOfCertainGendre = async () => {
     let numberOfMoviesOfCertainGendre = currentGendreMoviesArray.length;
     let numberOfFullCarouselsToCreate = 0;
     let partialCarouselsToCreate = 0;
+    let lessThanSixMovies = false;
+
     if (numberOfMoviesOfCertainGendre < 6) {
       numberOfFullCarouselsToCreate = 1;
-    } else if (numberOfMoviesOfCertainGendre % 6 === 0) {
-      numberOfFullCarouselsToCreate = Math.floor(
-        numberOfMoviesOfCertainGendre / 6
-      );
-    } else {
-      numberOfFullCarouselsToCreate = Math.floor(
-        numberOfMoviesOfCertainGendre / 6
-      );
-      partialCarouselsToCreate = 1;
+      lessThanSixMovies = true;
+    } else if (numberOfMoviesOfCertainGendre >= 6) {
+      lessThanSixMovies = false;
+      if (numberOfMoviesOfCertainGendre % 6 === 0) {
+        numberOfFullCarouselsToCreate = Math.floor(
+          numberOfMoviesOfCertainGendre / 6
+        );
+      } else {
+        numberOfFullCarouselsToCreate = Math.floor(
+          numberOfMoviesOfCertainGendre / 6
+        );
+        partialCarouselsToCreate = 1;
+      }
     }
 
-    for (let i = 0; i < numberOfFullCarouselsToCreate; i++) {
-      if (counterCurrentCarousel === 0) {
-        createInnerCarousel(gendre);
-        document.querySelector(".carousel-item").classList.add("active");
-        for (let j = i * 6; j <= i * 6 + 5; j++) {
-          createOneMovie(currentGendreMoviesArray[j], i);
+    if (lessThanSixMovies === true) {
+      createInnerCarousel(gendre);
+      document.querySelector(".carousel-item").classList.add("active");
+      for (let j = 0; j < numberOfMoviesOfCertainGendre; j++) {
+        createOneMovie(currentGendreMoviesArray[j], 0);
+      }
+    } else {
+      for (let i = 0; i < numberOfFullCarouselsToCreate; i++) {
+        if (counterCurrentCarousel === 0) {
+          createInnerCarousel(gendre);
+          document.querySelector(".carousel-item").classList.add("active");
+          for (let j = i * 6; j <= i * 6 + 5; j++) {
+            createOneMovie(currentGendreMoviesArray[j], i);
+          }
+          counterCurrentCarousel++;
+          // currentCarousel++;
+        } else {
+          createInnerCarousel(gendre);
+          for (let j = i * 6; j <= i * 6 + 5; j++) {
+            createOneMovie(
+              currentGendreMoviesArray[j],
+              numberOfFullCarouselsToCreate
+            );
+          }
+          // counterCurrentCarousel++;
         }
-        counterCurrentCarousel++;
-        // currentCarousel++;
-      } else {
+      }
+
+      if (partialCarouselsToCreate != 0) {
         createInnerCarousel(gendre);
-        for (let j = i * 6; j <= i * 6 + 5; j++) {
+        let startingIndexOfMovie =
+          numberOfFullCarouselsToCreate * 6 -
+          (6 - (numberOfMoviesOfCertainGendre % 6));
+        for (
+          let i = startingIndexOfMovie;
+          i < numberOfMoviesOfCertainGendre;
+          i++
+        ) {
           createOneMovie(
-            currentGendreMoviesArray[j],
+            currentGendreMoviesArray[startingIndexOfMovie],
             numberOfFullCarouselsToCreate
           );
+          startingIndexOfMovie++;
         }
-        // counterCurrentCarousel++;
+        counterCurrentCarousel++;
       }
     }
 
-    if (partialCarouselsToCreate != 0) {
-      createInnerCarousel(gendre);
-      let startingIndexOfMovie =
-        numberOfFullCarouselsToCreate * 6 -
-        (6 - (numberOfMoviesOfCertainGendre % 6));
-      for (
-        let i = startingIndexOfMovie;
-        i < numberOfMoviesOfCertainGendre;
-        i++
-      ) {
-        createOneMovie(
-          currentGendreMoviesArray[startingIndexOfMovie],
-          numberOfFullCarouselsToCreate
-        );
-        startingIndexOfMovie++;
-      }
-      counterCurrentCarousel++;
-    }
     createsButtonsForCarousel(gendre);
   });
 };
